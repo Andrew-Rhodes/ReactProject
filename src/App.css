@@ -39,7 +39,11 @@
 
 .brewery {
   border: 2px solid black;
-  width: 24%;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 ul {
@@ -48,5 +52,27 @@ ul {
 
 .brew-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  background-color: #dca72f
+}
+
+.brew-info {
+  padding: 10px;
+}
+
+.map {
+  padding: 10px;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
 }

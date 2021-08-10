@@ -23,7 +23,6 @@ class App extends Component {
   render (){
     const {breweries} = this.state;
 
-
     const defaultProps = {
       center: {
         lat: 0,
@@ -33,77 +32,52 @@ class App extends Component {
     };
 
     return (
-      <div className="brew-container">
-        {breweries.map((brewery) => ( 
-
-          // defaultProps.center.lat = brewery.[latitude];
-          // defaultProps.center.lng = brewery.longitude;
-            
-
-        <div className="brewery">
-          <h3>{brewery.name}</h3>
-          <p>Brewery Type: {brewery.brewery_type}</p>
-          <p>Address: </p>
-            <ul>
-              <li>Street: {brewery.street}</li>
-              <li>City: {brewery.city}</li>
-              <li>State: {brewery.state}</li>
-              <li>Zip: {brewery.postal_code}</li>
-            </ul>
-          <a href={brewery.website_url}>website</a>
-
+      <div className="wrapper">
+        <h1>CHECK OUT THESE LOCAL BREWERIES </h1>
           
-{brewery.latitude != null &&
-            <div style={{ height: '100vh', width: '100%' }}>
-              <GoogleMapReact
-                defaultCenter={[defaultProps.center.lat = brewery.latitude, defaultProps.center.lng = brewery.longitude]}
-                defaultZoom={defaultProps.zoom}>
-              </GoogleMapReact>
-            </div>     }
-        </div> ))}
+          <div className="brew-container">
+            {breweries.map((brewery) => ( 
+
+            <div className="brewery">
+              <div className="brew-info">
+                <h3>{brewery.name}</h3>
+                <p>Brewery Type: {brewery.brewery_type}</p>
+                <p>Address: </p>
+                  <ul>
+                    <li>Street: {brewery.street}</li>
+                    <li>City: {brewery.city}</li>
+                    <li>State: {brewery.state}</li>
+                    <li>Zip: {brewery.postal_code}</li>
+                  </ul>
+
+                  {brewery.website_url != null 
+                    ? <a href={brewery.website_url}>Visit the Brewery's Website!</a>
+                    : <p>No Website Provided</p>}
+              </div>
+              
+              {brewery.latitude != null 
+                ? <div style={{ height: '50vh', width: '50%' }} className="map">
+                    <GoogleMapReact
+                      
+                      // defaultCenter={[defaultProps.center.lat = brewery.latitude, defaultProps.center.lng = brewery.longitude]}
+                      //I am not sure why this does not render the map.
+                      //It is getting the Lat and Lng from the api, but for some reason I am unable to get it to render properly
+                      //I will be using hardcoded values in the meantime
+
+                      defaultCenter={[defaultProps.center.lat = 50, defaultProps.center.lng = 50]}
+                      defaultZoom={defaultProps.zoom}>
+                    </GoogleMapReact>
+                  </div>
+                : <div style={{ height: '50vh', width: '50%' }} className="map">
+                    <p>No Location Provided</p>
+                  </div>     
+              }
+            </div> ))
+            }
+          </div>
       </div>
     )
   }  
 }
-
-// class SimpleMap extends Component {
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       data: this.props.value
-//   }
-//   }
-  
-  
-// static defaultProps = {
-//   center: {
-//     lat: this.state.latitude,
-//     lng: this.state.data,
-//   },
-//   zoom: 11
-// };
-
-
-
-
-//   render() {
-
-//     return (
-//       <div style={{ height: '100vh', width: '100%' }}>
-//         <GoogleMapReact
-//           // bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
-//           defaultCenter={this.props.center}
-//           defaultZoom={this.props.zoom}
-//         >
-//           {/* <AnyReactComponent
-//             lat={59.955413}
-//             lng={30.337844}
-//             text="My Marker"
-//           /> */}
-//         </GoogleMapReact>
-//       </div>
-//     );
-//   }
-// }
 
 export default App;
